@@ -1,0 +1,98 @@
+<!-- 头部开始 -->
+{include file="page/header" /}
+<!-- 头部结束 -->
+
+<!-- 菜单开始 -->
+{include file="page/menu" /}
+<!-- 菜单结束 -->
+
+<!-- 内容开始 -->
+<div class="content-wrapper">
+
+    <!-- 内容标题开始 -->
+    <section class="content-header">
+        <h1>
+            {$module_name}列表
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i>首页</li>
+            <li><i class="fa fa-dashboard"></i>{$module_name}列表</li>
+        </ol>
+    </section>
+    <!-- 内容标题结束 -->
+
+    <!-- 主内容开始 -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <a  href="{$goback}" class="btn btn-primary">添加</a>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table  class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>序号</th>
+                                            <th>名称</th>
+                                            <th>频道</th>
+                                            <th>状态</th>
+                                            <th>排序</th>
+                                            <th>添加时间</th>
+                                            <th>更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {volist name="list" id="vo"}
+                                            <tr>
+                                                <td>{$vo.id}</td>
+                                                <td>{$vo.name}</td>
+                                                <td>{$vo.channel_name}</td>
+                                                <td>{$vo.status}</td>
+                                                <td>{$vo.weight}</td>
+                                                <td>{$vo.create_time}</td>
+                                                <td>{$vo.update_time}</td>
+                                                <td><a href="{:url('admin/'.$path.'/info', array('id'=>$vo.id, 'url_path'=>$url_path))}">查看</a> | <a href="{:url('admin/'.$path.'/edit', array('id'=>$vo.id, 'url_path'=>$url_path))}">编辑</a> | <a href="{:url('admin/'.$path.'/delete', array('id'=>$vo.id, 'url_path'=>$url_path))}">删除</a></td>
+                                            </tr>
+                                            {volist name="$vo.sub_category" id="voo"}
+                                            <tr>
+                                                <td>{$voo.id}</td>
+                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;- {$voo.name}</td>
+                                                <td>{$voo.channel_name}</td>
+                                                <td>{$voo.status}</td>
+                                                <td>{$voo.weight}</td>
+                                                <td>{$voo.create_time}</td>
+                                                <td>{$voo.update_time}</td>
+                                                <td><a href="{:url('admin/'.$path.'/info', array('id'=>$vo.id, 'url_path'=>$url_path))}">查看</a> | <a href="{:url('admin/'.$path.'/edit', array('id'=>$vo.id, 'url_path'=>$url_path))}">编辑</a> | <a href="{:url('admin/'.$path.'/delete', array('id'=>$vo.id, 'url_path'=>$url_path))}">删除</a></td>
+                                            </tr>
+
+                                            {/volist}
+                                        {/volist}
+                                    </tbody>
+                                </table>
+
+                                <!-- 分页开始 -->
+                                {$render}
+                                <!-- 分页结束 -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 主内容结束 -->
+
+</div>
+<!-- 内容结束 -->
+
+<!-- 脚部开始 -->
+{include file="page/footer" /}
+<!-- 脚部结束 -->
+
+

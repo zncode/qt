@@ -1,0 +1,120 @@
+<header class="main-header">
+    <!-- Logo -->
+    <a href="{:url('@admin')}" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">ADMIN</span>
+    </a>
+
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+   <!--   <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">切换导航</span>
+      </a>
+-->
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Messages: style can be found in dropdown.less-->
+          <li class="messages-menu">
+            <a href="http://cxgz.jiayou9.com" target="_blank">
+              网站首页新版
+            </a>
+          </li>
+          <li class="messages-menu">
+            <a href="http://www.guizhou.xin" target="_blank">
+              网站首页旧版
+            </a>
+          </li>
+          <li class="messages-menu">
+            <a href="{:url('@user/login')}" target="_blank">
+              公司后台
+            </a>
+          </li>
+          <li class="messages-menu">
+            <a href="{:url('@admin/user/logout')}" class="">
+              登出
+            </a>
+          </li>
+          <li class="messages-menu">
+&nbsp;&nbsp;&nbsp;&nbsp;
+          </li>
+        </ul>
+      </div>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li class="dropdown messages-menu">
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+
+
+        <!-- 商品管理 -->
+        {php}
+          if(!empty($_REQUEST['s'])){
+            $request = $_REQUEST['s'];
+          }else{
+            $request = '';
+          }
+        {/php}
+        <li class="treeview active">
+          <div class="menu-title">
+            <i class="fa fa-dashboard"></i>&nbsp;&nbsp;<span>文章管理</span>
+          </div>
+          <ul class="treeview-menu" >
+            <li class="{php} if(strpos($request, 'admin/article/add')){echo 'active';} {/php}"><a href="{:url('@admin/article/add')}"><i class="fa fa-angle-right"></i>文章添加</a></li>
+            <li class="{php} if(strpos($request, 'admin/article/list')){echo 'active';} {/php}"><a href="{:url('@admin/article/list')}"><i class="fa fa-angle-right"></i>文章列表</a></li>
+            <li class="{php} if(strpos($request, 'admin/article_type/add')){echo 'active';} {/php}"><a href="{:url('@admin/article_type/add?url_path=article_type')}"><i class="fa fa-angle-right"></i>文章类型添加</a></li>
+            <li class="{php} if(strpos($request, 'admin/article_type/list')){echo 'active';} {/php}"><a href="{:url('@admin/article_type/list?url_path=article_type')}"><i class="fa fa-angle-right"></i>文章类型列表</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview active" >
+          <div class="menu-title">
+            <i class="fa fa-th"></i>&nbsp;&nbsp;
+            <span>频道管理</span>
+          </div>
+          <ul class="treeview-menu">
+            <li class="{php} if(strpos($request, 'admin/channel/add')){echo 'active';} {/php}"><a href="{:url('@admin/channel/add')}"><i class="fa fa-angle-right"></i>频道添加</a></li>
+            <li class="{php} if(strpos($request, 'admin/channel/list')){echo 'active';} {/php}"><a href="{:url('@admin/channel/list')}"><i class="fa fa-angle-right"></i>频道列表</a></li>
+          </ul>
+        </li>
+
+        <!-- 资源列表  -->
+        <li class="treeview active" >
+          <div class="menu-title">
+            <i class="fa fa-cubes"></i>&nbsp;&nbsp;
+            <span>资源列表</span>
+          </div>
+          <ul class="treeview-menu">
+            <li class="{php} if(strpos($request, 'admin/resource_list')){echo 'active';} {/php}"><a href="{:url('@admin/resource')}"><i class="fa fa-angle-right"></i>内容列表</a></li>
+          </ul>
+        </li>
+
+        <!-- 系统设置 -->
+        <li class="treeview active">
+          <div class="menu-title">
+            <i class="fa fa-bars"></i>&nbsp;&nbsp;
+            <span>系统设置</span>
+          </div>
+          <ul class="treeview-menu">
+            <li><a href="{:url('@admin')}"><i class="fa fa-angle-right"></i>系统设置</a></li>
+            <li><a href="{:url('@admin')}"><i class="fa fa-angle-right"></i>修改密码</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>

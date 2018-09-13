@@ -1,0 +1,95 @@
+<!-- 头部开始 -->
+{include file="page/header" /}
+<!-- 头部结束 -->
+
+<!-- 菜单开始 -->
+{include file="page/menu" /}
+<!-- 菜单结束 -->
+
+<!-- 内容开始 -->
+<div class="content-wrapper">
+
+    <!-- 内容标题开始 -->
+    <section class="content-header">
+        <h1>
+            {$module_name}列表
+        </h1>
+        <ol class="breadcrumb">
+            <li><i class="fa fa-dashboard"></i>首页</li>
+            <li><i class="fa fa-dashboard"></i>{$module_name}列表</li>
+        </ol>
+    </section>
+    <!-- 内容标题结束 -->
+
+    <!-- 主内容开始 -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="rows">
+                            <div class="col-md-6"><a  href="{$goback}" class="btn btn-primary">添加</a></div>
+                            <div class="col-md-6 text-right">
+                                <form id="search_form" action="{$action}" method="get" class="form-inline">
+                                    <input type="input" name="keyword" class="form-control"  placeholder="标题" >
+                                    <button type="submit" class="btn btn-primary">搜索</button>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table  class="table table-bordered table-hover dataTable">
+                                    <thead>
+                                        <tr role="row">
+                                            <th>序号</th>
+                                            <th>标题</th>
+                                            <th>来源</th>
+                                            <th>作者</th>
+                                            <th>图片</th>
+                                            <th>添加时间</th>
+                                            <th>更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {volist name="list" id="vo"}
+                                        <tr>
+                                            <td>{$vo.id}</td>
+                                            <td>{$vo.title}</td>
+                                            <td>{$vo.source}</td>
+                                            <td>{$vo.author}</td>
+                                            <td>{$vo.picture_number}</td>
+                                            <td>{$vo.create_time}</td>
+                                            <td>{$vo.update_time}</td>
+                                            <td><a href="{:url('admin/'.$path.'/info', array('id'=>$vo.id))}">查看</a> | <a href="{:url('admin/'.$path.'/edit', array('id'=>$vo.id))}">编辑</a> | <a href="{:url('admin/'.$path.'/delete', array('id'=>$vo.id))}">删除</a></td>
+                                        </tr>
+                                        {/volist}
+                                    </tbody>
+                                </table>
+
+                                <!-- 分页开始 -->
+                                {$render}
+                                <!-- 分页结束 -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 主内容结束 -->
+
+</div>
+<!-- 内容结束 -->
+
+<!-- 脚部开始 -->
+{include file="page/footer" /}
+<!-- 脚部结束 -->
+
+
