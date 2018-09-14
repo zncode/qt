@@ -1,0 +1,61 @@
+{include file="page/header" /}
+<div class="layui-layout layui-layout-admin">
+    {include file="page/body_top" /}
+    {include file="page/menu" /}
+
+    <div class="layui-body">
+        <div class="layadmin-tabsbody-item layui-show">
+            <div class="layui-card layadmin-header">
+                <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+                    <a lay-href="">主页</a><span lay-separator="">/</span>
+                    <a><cite>组件</cite></a><span lay-separator="">/</span>
+                    <a><cite>数据表格</cite></a><span lay-separator="">/</span>
+                    <a><cite>数据操作</cite></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">数据操作</div>
+                        <div class="layui-card-body">
+                            <table id="demo" lay-filter="test"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {include file="page/body_bottom" /}
+
+</div>
+
+{include file="page/footer" /}
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            ,height: 312
+            ,url: '{$Think.BASE_PATH}admin/channel/list_data' //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'name', title: '频道名称', width:100}
+                ,{field: 'path', title: '路径', width:80, sort: true}
+                ,{field: 'keyword', title: '关键字', width:200}
+                ,{field: 'create_time', title: '创建时间'}
+                ,{field: 'op', title: '操作'}
+
+            ]]
+        });
+
+    });
+</script>

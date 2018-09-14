@@ -1,7 +1,7 @@
 <?php
-namespace app\index\controller;
+namespace app\admin\controller;
 
-use app\index\controller\BaseController;
+use app\admin\controller\BaseController;
 use think\Db;
 
 class ChannelController extends BaseController
@@ -26,6 +26,28 @@ class ChannelController extends BaseController
         $data['module_name']    = $this->module_name;
         $data['path']           = $this->url_path;
         return view($this->url_path.'/list', $data);
+    }
+    /**
+     * 列表
+     */
+    public function index_data()
+    {
+        $pages  = Db::table($this->table)->where(array('delete'=>0))->order('create_time desc')->paginate($this->pager);
+        $lists  = $pages->all();
+        foreach($lists as $key => $value){
+            $op = '<a href="admin/channel/info/'.$value['id'].'">查看</a>';
+            $op .= ' | ';
+            $op .= '<a href="admin/channel/edit/'.$value['id'].'">编辑</a>';
+            $op .= ' | ';
+            $op .= '<a href="admin/channel/delete/'.$value['id'].'">删除</a>';
+            $lists[$key]['op'] = $op;
+        }
+        $data = [
+            'code'  => 0,
+            'message' => '获取列表成功!',
+            'data'=> $lists,
+        ];
+        $this->json($data);
     }
 
     /**

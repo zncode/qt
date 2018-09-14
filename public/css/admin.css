@@ -1,0 +1,44 @@
+.layui-body{
+    background-color: #e6e6e6;
+}
+.layui-fluid {
+    padding: 15px;
+}
+.layui-card{
+    background-color: #fff;
+}
+
+div.layui-layout-admin div.layui-header{background-color: #ffffff; color: #666;box-shadow:0 1px 2px 0 rgba(0,0,0,.05)}
+div.layui-layout-admin div.layui-logo{background-color: #20222A !important;}
+.layui-header .layui-nav .layui-nav-item a{color: #000;}
+
+.layadmin-tabspage-none .layadmin-header .layui-breadcrumb {
+    border-top: 1px solid #f6f6f6;
+}
+
+.layadmin-tabspage-none .layadmin-header {
+    display: block;
+}
+.layadmin-header {
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.layadmin-header .layui-breadcrumb {
+    padding: 0 15px;
+}
+.layui-breadcrumb a {
+    color: #999!important;
+}
+.layui-breadcrumb span[lay-separator] {
+    margin: 0 10px;
+    color: #999;
+}
+.layui-breadcrumb>* {
+    font-size: 14px;
+}
+.layui-card-body {
+    padding: 10px 15px;
+    line-height: 24px;
+}
