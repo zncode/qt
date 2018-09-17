@@ -44,7 +44,7 @@ class ChannelController extends BaseController
             $op .= ' | ';
             $op .= '<a href="'.$url_edit.'" class="row_edit" date-id="'.$value['id'].'" >编辑</a>';
             $op .= ' | ';
-            $op .= '<a href="'.$url_delete.'" class="row_delete" date-id="'.$value['id'].'" >删除</a>';
+            $op .= '<a href="javascript:;" class="row_delete" date-id="'.$value['id'].'" >删除</a>';
             $lists[$key]['op'] = $op;
         }
         $data = [
