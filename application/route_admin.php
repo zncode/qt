@@ -30,6 +30,7 @@ Route::get('admin/channel/list', 			'admin/ChannelController/index');
 Route::get('admin/channel/info', 			'admin/ChannelController/info');
 Route::get('admin/channel/delete', 		    'admin/ChannelController/delete');
 Route::get('admin/channel/list_data', 		'admin/ChannelController/index_data');
+
 //栏目
 Route::get('admin/category/add', 			'admin/CategoryController/add_form');
 Route::post('admin/category/add_submit', 	'admin/CategoryController/add_form_submit');

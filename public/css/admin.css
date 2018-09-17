@@ -2,7 +2,10 @@
     background-color: #e6e6e6;
 }
 .layui-fluid {
-    padding: 15px;
+    padding: 15px 15px 15px 15px;
+}
+.layui-col-md12{
+
 }
 .layui-card{
     background-color: #fff;
@@ -12,18 +15,32 @@ div.layui-layout-admin div.layui-header{background-color: #ffffff; color: #666;b
 div.layui-layout-admin div.layui-logo{background-color: #20222A !important;}
 .layui-header .layui-nav .layui-nav-item a{color: #000;}
 
-.layadmin-tabspage-none .layadmin-header .layui-breadcrumb {
-    border-top: 1px solid #f6f6f6;
+.layui-breadcrumb {
+    border-bottom: 1px solid #f6f6f6;
+    height: 40px;
+    line-height:40px;
+    background-color: #ffffff;
+    margin-top: 10px;
+    font-size: 11px;
+    margin-bottom: 10px;
+    margin-left:auto;
+    margin-right:auto;
+    width:98%;
+    padding-left:5px;
 }
 
 .layadmin-tabspage-none .layadmin-header {
     display: block;
 }
 .layadmin-header {
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     margin-bottom: 0;
     border-radius: 0;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right:auto;
+    width:98%;
 }
 .layadmin-header .layui-breadcrumb {
     padding: 0 15px;
@@ -37,8 +54,13 @@ div.layui-layout-admin div.layui-logo{background-color: #20222A !important;}
 }
 .layui-breadcrumb>* {
     font-size: 14px;
+
 }
 .layui-card-body {
     padding: 10px 15px;
     line-height: 24px;
+}
+.go_back{
+    margin-top:20px;
+    margin-left:15px;
 }

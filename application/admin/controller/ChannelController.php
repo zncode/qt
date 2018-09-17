@@ -27,6 +27,7 @@ class ChannelController extends BaseController
         $data['path']           = $this->url_path;
         return view($this->url_path.'/list', $data);
     }
+
     /**
      * 列表
      */
@@ -35,11 +36,15 @@ class ChannelController extends BaseController
         $pages  = Db::table($this->table)->where(array('delete'=>0))->order('create_time desc')->paginate($this->pager);
         $lists  = $pages->all();
         foreach($lists as $key => $value){
-            $op = '<a href="admin/channel/info/'.$value['id'].'">查看</a>';
+            $url_view   = url('admin/channel/info', ['id'=>$value['id']]);
+            $url_edit   = url('admin/channel/info', ['id'=>$value['id']]);
+            $url_delete = url('admin/channel/info', ['id'=>$value['id']]);
+
+            $op = '<a href="'.$url_view.'" class="row_view" date-id="'.$value['id'].'" >查看</a>';
             $op .= ' | ';
-            $op .= '<a href="admin/channel/edit/'.$value['id'].'">编辑</a>';
+            $op .= '<a href="'.$url_edit.'" class="row_edit" date-id="'.$value['id'].'" >编辑</a>';
             $op .= ' | ';
-            $op .= '<a href="admin/channel/delete/'.$value['id'].'">删除</a>';
+            $op .= '<a href="'.$url_delete.'" class="row_delete" date-id="'.$value['id'].'" >删除</a>';
             $lists[$key]['op'] = $op;
         }
         $data = [
