@@ -15,7 +15,7 @@
               <a><cite>频道详情</cite></a><span lay-separator=""></span>
             </div>
 
-            <div class="go_back"><a href="{$goback}" class="layui-btn layui-btn-normal layui-btn-sm">返回</a></div>
+            <div class="go_back"><a href="{$goback}" class="layui-btn layui-btn-sm">返回</a></div>
             <div class="layui-card-body">
               <table class="layui-table" >
                 <colgroup>
@@ -82,26 +82,3 @@
 </div>
 
 {include file="page/footer" /}
-
-<script>
-    layui.use('table', function(){
-        var table = layui.table;
-
-        //第一个实例
-        table.render({
-            elem: '#demo'
-            ,height: 312
-            ,url: '{$Think.BASE_PATH}admin/channel/list_data' //数据接口
-            ,page: true //开启分页
-            ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-                ,{field: 'name', title: '频道名称', width:100}
-                ,{field: 'path', title: '路径', width:80, sort: true}
-                ,{field: 'keyword', title: '关键字', width:200}
-                ,{field: 'create_time', title: '创建时间'}
-                ,{field: 'op', title: '操作'}
-
-            ]]
-        });
-    });
-</script>

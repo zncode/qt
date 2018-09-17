@@ -37,8 +37,8 @@ class ChannelController extends BaseController
         $lists  = $pages->all();
         foreach($lists as $key => $value){
             $url_view   = url('admin/channel/info', ['id'=>$value['id']]);
-            $url_edit   = url('admin/channel/info', ['id'=>$value['id']]);
-            $url_delete = url('admin/channel/info', ['id'=>$value['id']]);
+            $url_edit   = url('admin/channel/edit', ['id'=>$value['id']]);
+            $url_delete = url('admin/channel/delete', ['id'=>$value['id']]);
 
             $op = '<a href="'.$url_view.'" class="row_view" date-id="'.$value['id'].'" >查看</a>';
             $op .= ' | ';
@@ -95,10 +95,16 @@ class ChannelController extends BaseController
             'create_time'   => date("Y-m-d H:i:s", time()),
         ];
         $result = Db::table($this->table)->insert($data);
+//        if($result){
+//            $this->success('添加成功', 'admin/'.$this->url_path.'/add');
+//        }else{
+//            $this->error('添加失败');
+//        }
         if($result){
-            $this->success('添加成功', 'admin/'.$this->url_path.'/add');
+
+            $this->json(array('code'=>0, 'msg'=>'添加成功', 'data'=>array()));
         }else{
-            $this->error('添加失败');
+            $this->json(array('code'=>1, 'msg'=>'添加失败', 'data'=>array()));
         }
     }
 
@@ -134,9 +140,11 @@ class ChannelController extends BaseController
         ];
         $result = Db::table($this->table)->where(array('id'=>$id))->update($data);
         if($result){
-            $this->success('编辑成功', 'admin/'.$this->url_path.'/edit?id='.$id);
+//            $this->success('编辑成功', 'admin/'.$this->url_path.'/edit?id='.$id);
+            $this->json(array('code'=>0, 'msg'=>'编辑成功', 'data'=>array('id'=>$id)));
         }else{
-            $this->error('编辑失败');
+//            $this->error('编辑失败');
+            $this->json(array('code'=>1, 'msg'=>'编辑失败', 'data'=>array()));
         }
     }
 
