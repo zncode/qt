@@ -40,12 +40,12 @@ class ChannelController extends BaseController
             $url_edit   = url('admin/channel/edit', ['id'=>$value['id']]);
             $url_delete = url('admin/channel/delete', ['id'=>$value['id']]);
 
-            $op = '<a href="'.$url_view.'" class="row_view" date-id="'.$value['id'].'" >查看</a>';
-            $op .= ' | ';
-            $op .= '<a href="'.$url_edit.'" class="row_edit" date-id="'.$value['id'].'" >编辑</a>';
-            $op .= ' | ';
-            $op .= '<a href="javascript:;" class="row_delete" date-id="'.$value['id'].'" >删除</a>';
-            $lists[$key]['op'] = $op;
+//            $op = '<a href="'.$url_view.'" class="row_view" date-id="'.$value['id'].'" >查看</a>';
+//            $op .= ' | ';
+//            $op .= '<a href="'.$url_edit.'" class="row_edit" date-id="'.$value['id'].'" >编辑</a>';
+//            $op .= ' | ';
+//            $op .= '<a href="javascript:;" class="row_delete" date-id="'.$value['id'].'" >删除</a>';
+//            $lists[$key]['op'] = $op;
         }
         $data = [
             'code'  => 0,
@@ -159,9 +159,9 @@ class ChannelController extends BaseController
         ];
         $result = Db::table($this->table)->where('id',$id)->update($data);
         if($result){
-            $this->success('删除成功', 'admin/'.$this->url_path.'/list');
+            $this->json(array('code'=>0, 'msg'=>'删除成功', 'data'=>array('id'=>$id)));
         }else{
-            $this->error('删除失败');
+            $this->json(array('code'=>1, 'msg'=>'删除失败', 'data'=>array()));
         }
     }
 }
