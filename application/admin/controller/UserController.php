@@ -3,6 +3,7 @@ namespace app\admin\controller;
 
 use app\admin\controller\BaseController;
 use think\Db;
+use think\Session;
 use app\model\UserModel;
 
 class UserController extends BaseController
@@ -16,7 +17,7 @@ class UserController extends BaseController
      * 用户登录
      */
     public function login_form(){
-        $data['action'] = url('admin/'.$this->url_path.'/login_form_submit');
+        $data['action'] = url('admin/'.$this->url_path.'/login_submit');
         return view($this->url_path.'/login', $data);
     }
 
@@ -25,11 +26,23 @@ class UserController extends BaseController
      */
     public function login_form_submit(){
         $formData = input('request.');
-        if($formData['username'] == 'admin' && $formData['password'] == 'admin'){
+
+        $info = Db::table($this->table)->where(array('username'=>$formData['username'], 'password'=>md5($formData['password'])))->find();
+        Session('user_id', $info['id']);
+
+        if($info){
             return json(['code'=>0, 'msg'=>'登录成功!', 'data'=>['uid'=>1]]);
         }else{
-            return json(['code'=>1, 'msg'=>'登录失败!', 'data'=>[]]);
+            return json(['code'=>1, 'msg'=>'用户名或者密码错误!', 'data'=>[]]);
         }
+    }
+
+    /**
+     * 用户登出
+     */
+    public function logout(){
+        Session::delete('user_id');
+        return  json(['code'=>0, 'msg'=>'登出成功!', 'data'=>[]]);
     }
 
     /**

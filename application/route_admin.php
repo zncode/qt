@@ -4,10 +4,11 @@ use think\Route;
 Route::get('admin', 				        'admin/IndexController/index');
 
 //用户
-Route::get('admin/user/login', 			    'admin/UserController/login_form');
-Route::post('admin/user/login_submit', 		'admin/UserController/login_form_submit');
+Route::get('admin/user/login', 			        'admin/UserController/login_form');
+Route::post('admin/user/login_submit', 		    'admin/UserController/login_form_submit');
 Route::get('admin/user/register', 			    'admin/UserController/register_form');
 Route::post('admin/user/register_submit', 		'admin/UserController/register_form_submit');
+Route::get('admin/user/logout', 			    'admin/UserController/logout');
 
 //文章
 Route::get('admin/article/add', 			'ArticleController/add_form');

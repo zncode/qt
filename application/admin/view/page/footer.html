@@ -2,8 +2,33 @@
 <script src="{$Think.BASE_PATH}layui/layui.js" charset="utf-8"></script>
 <script>
     //JavaScript代码区域
-    layui.use('element', function(){
+    layui.use('layer', function(){
         var element = layui.element;
+
+        $ = layui.jquery;
+        $('#logout').click(function(){
+            //提交
+            $.ajax({
+                url: "{$Think.BASE_PATH}admin/user/logout",
+                type: "get",
+                success:function(result){
+                    var code = result.code;
+                    var msg  = result.msg;
+                    var data = result.data;
+                    if(code==0){
+                        layer.msg(msg, {
+                            time: 2000,
+                            icon: 16,
+                            shade: 0.2
+                        }, function(){
+                            window.location.href = "{$Think.BASE_PATH}admin/user/login";
+                        });
+                    }else{
+                        layer.msg(msg);
+                    }
+                }
+            })
+        });
     });
 </script>
 </body>
