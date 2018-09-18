@@ -1,121 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head> 
+{include file="page/header" /}
+<link rel="stylesheet" href="{$Think.BASE_PATH}css/login.css" media="all">
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>诚信贵州</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{$Think.APP_ADMIN_BOOTSTRAP}bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{$Think.APP_ADMIN_BOOTSTRAP}dist/css/AdminLTE.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="{$Think.APP_ADMIN_BOOTSTRAP}plugins/iCheck/square/blue.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <b>诚信贵州后台管理</b>
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">用戶登录</p>
- 
-    <form action="{:url('admin/user/login_submit')}" method="POST" onsubmit="return login();">
-      <div class="form-group has-feedback">
-        <input type="user_name" name="user_name" id="user_name" class="form-control" placeholder="用户名" value="admin">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+  <div class="layadmin-user-login-main">
+    <div class="layadmin-user-login-box layadmin-user-login-header">
+      <h2>用户登录</h2>
+      <p>运营后台管理系统</p>
+    </div>
+    <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+      <div class="layui-form-item">
+        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
+        <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
       </div>
-      <div class="form-group has-feedback">
-        <input type="password" name="password" id="password" class="form-control" placeholder="密码" value="admin">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      <div class="layui-form-item">
+        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
+        <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
       </div>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="checkbox icheck">
-            <label>
-              <!-- <input type="checkbox">记住我 -->
-            </label>
+      <div class="layui-form-item">
+        <div class="layui-row">
+          <div class="layui-col-xs7">
+            <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
+            <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">
+          </div>
+          <div class="layui-col-xs5">
+            <div style="margin-left: 10px;">
+              <img src="https://www.oschina.net/action/user/captcha?t=1537250143258" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
+            </div>
           </div>
         </div>
-        <!-- /.col -->
-       <!--  <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">确定</button>
-        </div> -->
-        <button class="btn btn-block btn-success" type="submit">确定</button>
-        <!-- /.col -->
       </div>
-    </form>
+      <div class="layui-form-item" style="margin-bottom: 20px;">
+        <input type="checkbox" name="remember" lay-skin="primary" title="记住密码"><div class="layui-unselect layui-form-checkbox" lay-skin="primary"><span>记住密码</span><i class="layui-icon layui-icon-ok"></i></div>
+        <a lay-href="/user/forget" class="layadmin-user-jump-change layadmin-link" style="margin-top: 7px;">忘记密码？</a>
+      </div>
+      <div class="layui-form-item">
+        <button class="layui-btn layui-btn-fluid" lay-submit="" lay-filter="LAY-user-login-submit">登 入</button>
+      </div>
+      <div class="layui-trans layui-form-item layadmin-user-login-other">
+        <label>社交账号登入</label>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-qq"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-wechat"></i></a>
+        <a href="javascript:;"><i class="layui-icon layui-icon-login-weibo"></i></a>
 
-    <!-- <div class="social-auth-links text-center">
-      <p>- OR -</p>
-      <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i>微信登录</a>
-      <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> qq登录</a>
-    </div> -->
-    <!-- /.social-auth-links -->
-
-<!--     <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a> -->
-
+        <a lay-href="/user/reg" class="layadmin-user-jump-change layadmin-link">注册帐号</a>
+      </div>
+    </div>
   </div>
-  <!-- /.login-box-body -->
+
+  <div class="layui-trans layadmin-user-login-footer">
+
+    <p>© 2018 <a href="http://www.layui.com/" target="_blank">layui.com</a></p>
+    <p>
+      <span><a href="http://www.layui.com/admin/#get" target="_blank">获取授权</a></span>
+      <span><a href="http://www.layui.com/admin/pro/" target="_blank">在线演示</a></span>
+      <span><a href="http://www.layui.com/admin/" target="_blank">前往官网</a></span>
+    </p>
+  </div>
+
 </div>
-<!-- /.login-box -->
 
-<!-- jQuery 2.2.3 -->
-<script src="{$Think.APP_ADMIN_BOOTSTRAP}plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="{$Think.APP_ADMIN_BOOTSTRAP}bootstrap/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="{$Think.APP_ADMIN_BOOTSTRAP}plugins/iCheck/icheck.min.js"></script>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
 
-  function login(){
-     var url = "{:url('@admin/user/login_submit')}";
-     var user_name = $('#user_name').val();
-     var password = $('#password').val();
-     $.ajax({
-        type: "post",
-        url: url,
-        data: {"user_name":user_name,"password":password},
-        cache: false,
-        async : false,
-        dataType: "json",
-        success: function (res)
-        {
-            if(res.code == 1){
-                alert(res.message);
-            }else{
-                var url = "{:url('@admin')}";
-                window.location.href=url;
-            }
-        },
-        error:function (XMLHttpRequest, textStatus, errorThrown) {      
-            alert("请求失败！");
-        }
-     });
-     return false;
-  }
-</script>
-</body>
-</html>
+{include file="page/footer" /}

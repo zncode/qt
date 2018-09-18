@@ -13,7 +13,8 @@ class UserController extends BaseController
     public $module_name = '用户';
 
     public function login(){
-        echo 'login';
+        $data = [];
+        return view($this->url_path.'/login', $data);
     }
 
     /**
