@@ -3,6 +3,10 @@ use think\Route;
 //后台
 Route::get('admin', 				        'admin/IndexController/index');
 
+//用户
+Route::get('admin/user/login', 			    'admin/UserController/login');
+
+
 //文章
 Route::get('admin/article/add', 			'ArticleController/add_form');
 Route::post('admin/article/add_submit', 	'ArticleController/add_form_submit');
