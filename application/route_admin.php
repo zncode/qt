@@ -5,7 +5,7 @@ Route::get('admin', 				        'admin/IndexController/index');
 
 //用户
 Route::get('admin/user/login', 			    'admin/UserController/login');
-
+Route::post('admin/user/login_submit', 		'admin/UserController/login_submit');
 
 //文章
 Route::get('admin/article/add', 			'ArticleController/add_form');

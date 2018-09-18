@@ -12,9 +12,24 @@ class UserController extends BaseController
     public $url_path = 'user';
     public $module_name = '用户';
 
+    /**
+     * 用户登录
+     */
     public function login(){
-        $data = [];
+        $data['action'] = url('admin/'.$this->url_path.'/login_submit');
         return view($this->url_path.'/login', $data);
+    }
+
+    /**
+     * 用户登录提交
+     */
+    public function login_submit(){
+        $formData = input('request.');
+        if($formData['username'] == 'admin' && $formData['password'] == 'admin'){
+            return json(['code'=>0, 'msg'=>'登录成功!', 'data'=>['uid'=>1]]);
+        }else{
+            return json(['code'=>1, 'msg'=>'登录失败!', 'data'=>[]]);
+        }
     }
 
     /**
