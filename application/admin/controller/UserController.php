@@ -15,20 +15,61 @@ class UserController extends BaseController
     /**
      * 用户登录
      */
-    public function login(){
-        $data['action'] = url('admin/'.$this->url_path.'/login_submit');
+    public function login_form(){
+        $data['action'] = url('admin/'.$this->url_path.'/login_form_submit');
         return view($this->url_path.'/login', $data);
     }
 
     /**
      * 用户登录提交
      */
-    public function login_submit(){
+    public function login_form_submit(){
         $formData = input('request.');
         if($formData['username'] == 'admin' && $formData['password'] == 'admin'){
             return json(['code'=>0, 'msg'=>'登录成功!', 'data'=>['uid'=>1]]);
         }else{
             return json(['code'=>1, 'msg'=>'登录失败!', 'data'=>[]]);
+        }
+    }
+
+    /**
+     * 用户注册
+     */
+    public function register_form(){
+        $data['action'] = url('admin/'.$this->url_path.'/register_submit');
+        return view($this->url_path.'/register', $data);
+    }
+
+    /**
+     * 用户注册提交
+     */
+    public function register_form_submit(){
+        $formData = input('request.');
+
+        $info = Db::table($this->table)->where(array('username'=>$formData['username']))->find();
+        if($info){
+            return json(['code'=>1, 'msg'=>'用户已经存在!', 'data'=>[]]);
+        }
+
+        $data = [
+            'status'            => 1,
+            'role_id'           => 1,
+            'username'          => $formData['username'],
+            'password'          => md5($formData['password']),
+            'nickname'          => $formData['nickname'],
+            'register_type'     => 1, //1=手机号 2=微信 3=qq
+            'register_account'  => $formData['username'],
+            'register_source'   => 1, //注册来源:1=PC, 2=IOS, 3=Android, 4=后台添加,5=webapp
+            'register_ip'       => get_client_ip(),
+            'create_time'   => date("Y-m-d H:i:s", time()),
+        ];
+        $result  = Db::table($this->table)->insert($data);
+        $uid     = Db::table($this->table)->getLastInsID();
+
+        if($result){
+            return json(['code'=>0, 'msg'=>'注册成功!', 'data'=>['uid'=>$uid]]);
+        }else{
+            return json(['code'=>1, 'msg'=>'注册失败!', 'data'=>[]]);
         }
     }
 
