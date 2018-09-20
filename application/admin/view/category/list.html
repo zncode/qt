@@ -1,98 +1,196 @@
-<!-- 头部开始 -->
 {include file="page/header" /}
-<!-- 头部结束 -->
+<div class="layui-layout layui-layout-admin">
+    {include file="page/body_top" /}
+    {include file="page/menu" /}
 
-<!-- 菜单开始 -->
-{include file="page/menu" /}
-<!-- 菜单结束 -->
+    <div class="layui-body">
 
-<!-- 内容开始 -->
-<div class="content-wrapper">
-
-    <!-- 内容标题开始 -->
-    <section class="content-header">
-        <h1>
-            {$module_name}列表
-        </h1>
-        <ol class="breadcrumb">
-            <li><i class="fa fa-dashboard"></i>首页</li>
-            <li><i class="fa fa-dashboard"></i>{$module_name}列表</li>
-        </ol>
-    </section>
-    <!-- 内容标题结束 -->
-
-    <!-- 主内容开始 -->
-    <section class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary">
-                    <div class="box-header with-border">
-                        <a  href="{$goback}" class="btn btn-primary">添加</a>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table  class="table table-bordered table-hover dataTable">
-                                    <thead>
-                                        <tr role="row">
-                                            <th>序号</th>
-                                            <th>名称</th>
-                                            <th>频道</th>
-                                            <th>状态</th>
-                                            <th>排序</th>
-                                            <th>添加时间</th>
-                                            <th>更新时间</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {volist name="list" id="vo"}
-                                            <tr>
-                                                <td>{$vo.id}</td>
-                                                <td>{$vo.name}</td>
-                                                <td>{$vo.channel_name}</td>
-                                                <td>{$vo.status}</td>
-                                                <td>{$vo.weight}</td>
-                                                <td>{$vo.create_time}</td>
-                                                <td>{$vo.update_time}</td>
-                                                <td><a href="{:url('admin/'.$path.'/info', array('id'=>$vo.id, 'url_path'=>$url_path))}">查看</a> | <a href="{:url('admin/'.$path.'/edit', array('id'=>$vo.id, 'url_path'=>$url_path))}">编辑</a> | <a href="{:url('admin/'.$path.'/delete', array('id'=>$vo.id, 'url_path'=>$url_path))}">删除</a></td>
-                                            </tr>
-                                            {volist name="$vo.sub_category" id="voo"}
-                                            <tr>
-                                                <td>{$voo.id}</td>
-                                                <td>&nbsp;&nbsp;&nbsp;&nbsp;- {$voo.name}</td>
-                                                <td>{$voo.channel_name}</td>
-                                                <td>{$voo.status}</td>
-                                                <td>{$voo.weight}</td>
-                                                <td>{$voo.create_time}</td>
-                                                <td>{$voo.update_time}</td>
-                                                <td><a href="{:url('admin/'.$path.'/info', array('id'=>$vo.id, 'url_path'=>$url_path))}">查看</a> | <a href="{:url('admin/'.$path.'/edit', array('id'=>$vo.id, 'url_path'=>$url_path))}">编辑</a> | <a href="{:url('admin/'.$path.'/delete', array('id'=>$vo.id, 'url_path'=>$url_path))}">删除</a></td>
-                                            </tr>
-
-                                            {/volist}
-                                        {/volist}
-                                    </tbody>
-                                </table>
-
-                                <!-- 分页开始 -->
-                                {$render}
-                                <!-- 分页结束 -->
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+                            <a lay-href="">主页</a><span lay-separator="">/</span>
+                            <a><cite>频道管理</cite></a><span lay-separator="">/</span>
+                            <a><cite>频道详情</cite></a><span lay-separator=""></span>
+                        </div>
+                        <div class="go_back"><a href="{:url('admin/channel/add')}" class="layui-btn layui-btn-sm">添加</a></div>
+                        <div class="layui-card-body">
+                            <div style="height: 100%">
+                                <div class="dHead">
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="window.location.href='index.html';">刷新</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="reload()">reload</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="query()">query</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="add(null);">新增一行</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="openorclose();">隐藏或打开香蕉节点</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="getCheckData();">获取选中行数据</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="getCheckLength();">获取选中数目</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="print();">打印缓存对象</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="openAll();">展开或折叠全部</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="radioStatus();">获取单选数据</a>
+                                    <a class="layui-btn layui-btn-primary layui-btn-xs layui-btn-xstree"  onclick="test();">test</a>
+                                    <br>
+                                    <br>
+                                    <b>此服务器配置不是一般低</b>，请您耐心等待，如长时间无法加载，可以手动刷新一次（一机多用，所以宽带和内存有限的问题导致资源无法及时加载成功）。
+                                </div>
+                                <div class="dBody">
+                                    <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </section>
-    <!-- 主内容结束 -->
+
+    </div>
+
+    {include file="page/body_bottom" /}
 
 </div>
-<!-- 内容结束 -->
 
-<!-- 脚部开始 -->
 {include file="page/footer" /}
-<!-- 脚部结束 -->
+
+<script>
+    var editObj=null,ptable=null,treeGrid=null,tableId='treeTable',layer=null;
+    layui.config({
+        base: '{$Think.BASE_PATH}layui/extend/'
+    }).extend({
+        treeGrid:'treeGrid'
+    }).use(['jquery','treeGrid','layer'], function(){
+        var $=layui.jquery;
+        treeGrid = layui.treeGrid;//很重要
+        layer    = layui.layer;
+        ptable   = treeGrid.render({
+            id:tableId
+            ,elem: '#'+tableId
+            ,idField:'id'
+            ,url:'{$Think.BASE_PATH}admin/category/json_data'
+            ,cellMinWidth: 100
+            ,treeId:'id'//树形id字段名称
+            ,treeUpId:'pId'//树形父id字段名称
+            ,treeShowName:'name'//以树形式显示的字段
+            ,heightRemove:[".dHead",10]//不计算的高度,表格设定的是固定高度，此项不生效
+            ,height:'100%'
+            ,isFilter:false
+            ,iconOpen:true//是否显示图标【默认显示】
+            ,isOpenDefault:true//节点默认是展开还是折叠【默认展开】
+            ,cols: [[
+                {type:'numbers'}
+                ,{type:'radio'}
+                ,{type:'checkbox'}
+                ,{field:'name', width:300, title: '水果名称',edit:'text'}
+                ,{field:'id',width:100, title: 'id'}
+                ,{field:'pId', title: 'pid'}
+                ,{width:100,title: '操作', align:'center'/*toolbar: '#barDemo'*/
+                    ,templet: function(d){
+                        var html='';
+                        var addBtn='<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="add">添加</a>';
+                        var delBtn='<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>';
+                        return addBtn+delBtn;
+                    }
+                }
+            ]]
+            ,page:true
+            ,parseData:function (res) {//数据加载后回调
+                return res;
+            }
+            ,onClickRow:function (index, o) {
+                console.log(index,o,"单击！");
+            }
+            ,onDblClickRow:function (index, o) {
+                console.log(index,o,"双击");
+            }
+        });
+
+        treeGrid.on('tool('+tableId+')',function (obj) {
+            if(obj.event === 'del'){//删除行
+                del(obj);
+            }else if(obj.event==="add"){//添加行
+                add(obj);
+            }
+        });
+    });
+
+//    function del(obj) {
+//        layer.confirm("你确定删除数据吗？如果存在下级节点则一并删除，此操作不能撤销！",{icon: 3,title:'提示'},
+//            function(index){//确定回调
+//                obj.del();
+//                layer.close(index);
+//            },function(index) {//取消回调
+//                layer.close(index);
+//            }
+//        );
+//    }
 
 
+    var i=1000000;
+    //添加
+    function add(pObj) {
+        var pdata=pObj?pObj.data:null;
+        var param={};
+        param.name='水果'+Math.random();
+        param.id=++i;
+        param.pId=pdata?pdata.id:null;
+        treeGrid.addRow(tableId,pdata?pdata[treeGrid.config.indexName]+1:0,param);
+    }
+
+    function print() {
+        console.log(treeGrid.cache[tableId]);
+        var loadIndex=layer.msg("对象已打印，按F12，在控制台查看！", {
+            time:3000
+            ,offset: 'auto'//顶部
+            ,shade: 0
+        });
+    }
+
+    function openorclose() {
+        var map=treeGrid.getDataMap(tableId);
+        var o= map['102'];
+        treeGrid.treeNodeOpen(tableId,o,!o[treeGrid.config.cols.isOpen]);
+    }
+
+
+    function openAll() {
+        var treedata=treeGrid.getDataTreeList(tableId);
+        treeGrid.treeOpenAll(tableId,!treedata[0][treeGrid.config.cols.isOpen]);
+    }
+
+    function getCheckData() {
+        var checkStatus = treeGrid.checkStatus(tableId)
+            ,data = checkStatus.data;
+        layer.alert(JSON.stringify(data));
+    }
+    function radioStatus() {
+        var data = treeGrid.radioStatus(tableId)
+        layer.alert(JSON.stringify(data));
+    }
+    function getCheckLength() {
+        var checkStatus = treeGrid.checkStatus(tableId)
+            ,data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+    }
+
+    function reload() {
+        treeGrid.reload(tableId,{
+            page:{
+                curr:1
+            }
+        });
+    }
+    function query() {
+        treeGrid.query(tableId,{
+            where:{
+                name:'sdfsdfsdf'
+            }
+        });
+    }
+
+    function test() {
+//        console.log(treeGrid.cache[tableId],treeGrid.getClass(tableId));
+        var map=treeGrid.getDataMap(tableId);
+        var o= map['102'];
+        o.name="更新";
+        treeGrid.updateRow(tableId,o);
+    }
+</script>

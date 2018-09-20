@@ -46,5 +46,5 @@ Route::post('admin/category/edit_submit', 	'admin/CategoryController/edit_form_s
 Route::get('admin/category/list', 			'admin/CategoryController/index');
 Route::get('admin/category/info', 			'admin/CategoryController/info');
 Route::get('admin/category/delete', 		'admin/CategoryController/delete');
-
+Route::get('admin/category/json_data', 		'admin/CategoryController/json_data');
 
