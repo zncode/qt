@@ -15,7 +15,7 @@ class BaseController extends Controller
     public function _initialize(){
         $request = request();
         $path = $request->path();
-        if($path != 'admin/user/login_submit'){
+        if(!$this->public_path($path)){
             if(Session::has('user_id')){
                 $this->user_id = Session::get('user_id');
             }else{
@@ -41,5 +41,24 @@ class BaseController extends Controller
     public function json($data){
         echo json_encode($data);
         die;
+    }
+
+    /**
+     * 不需要权限检查的路径
+     */
+    public function public_path($path){
+        $data = [
+            'admin/user/login_submit',
+            'admin/user/register',
+            'admin/user/register_submit',
+        ];
+
+        foreach($data as $key => $value){
+            if($path == $value){
+                return true;
+            }
+        }
+
+        return false;
     }
 }
