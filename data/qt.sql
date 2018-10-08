@@ -10,10 +10,41 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2018-09-18 11:40:03
+Date: 2018-10-08 14:12:33
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for qt_category
+-- ----------------------------
+DROP TABLE IF EXISTS `qt_category`;
+CREATE TABLE `qt_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent` int(11) NOT NULL DEFAULT '0' COMMENT '父级id',
+  `channel_id` int(11) NOT NULL COMMENT '频道id',
+  `name` varchar(255) NOT NULL COMMENT '栏目名称',
+  `status` int(1) NOT NULL DEFAULT '1' COMMENT '状态0=关闭，1=开放',
+  `weight` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
+  `keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
+  `description` text COMMENT '描述',
+  `delete` int(11) NOT NULL COMMENT '1=删除',
+  `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qt_category
+-- ----------------------------
+INSERT INTO `qt_category` VALUES ('1', '0', '1', '1133', '1', '1', '1', '111', '0', '2018-05-14 11:53:52', '2018-05-14 17:37:00');
+INSERT INTO `qt_category` VALUES ('2', '1', '1', '12', '1', '1', '1', '11', '0', '2018-05-14 13:48:43', '0000-00-00 00:00:00');
+INSERT INTO `qt_category` VALUES ('3', '0', '1', '每日养眼', '1', '1', '每日养眼', '每日养眼每日养眼每日养眼', '0', '2018-05-14 13:54:30', '0000-00-00 00:00:00');
+INSERT INTO `qt_category` VALUES ('4', '0', '1', '趣味植物', '1', '1', '1', '趣味植物', '0', '2018-05-14 13:56:13', '2018-05-14 15:57:49');
+INSERT INTO `qt_category` VALUES ('5', '0', '1', '植物新闻', '1', '1', '1', '植物新闻', '0', '2018-05-14 15:41:52', '2018-05-14 15:58:12');
+INSERT INTO `qt_category` VALUES ('6', '0', '1', '植物科学', '1', '1', '1', '植物科学', '0', '2018-05-14 15:42:55', '2018-05-14 15:58:31');
+INSERT INTO `qt_category` VALUES ('7', '4', '1', 'test1', '1', '1', '1', '1', '0', '2018-05-14 15:58:56', '2018-05-14 16:44:26');
+INSERT INTO `qt_category` VALUES ('8', '6', '1', 'test1', '1', '1', '1', '1', '0', '2018-05-14 17:20:10', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for qt_channel
@@ -31,7 +62,7 @@ CREATE TABLE `qt_channel` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qt_channel
@@ -41,6 +72,7 @@ INSERT INTO `qt_channel` VALUES ('2', 'test11', '0', 'test', '12', 'test', 'test
 INSERT INTO `qt_channel` VALUES ('3', 'test11112', '0', 't2', '0', 't2', '1112223333213213', '0', '2018-09-17 16:21:48', '2018-09-17 17:16:42');
 INSERT INTO `qt_channel` VALUES ('4', '1212333', '0', '1212', '1212', '1212', '1212', '0', '2018-09-17 17:18:57', '2018-09-18 11:13:53');
 INSERT INTO `qt_channel` VALUES ('5', '331', '0', '33', '33', '33', '33', '1', '2018-09-17 17:19:08', '2018-09-17 17:26:30');
+INSERT INTO `qt_channel` VALUES ('6', '111222', '0', '111', '1', '111', '111', '0', '2018-10-08 14:03:05', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for qt_user
@@ -51,7 +83,7 @@ CREATE TABLE `qt_user` (
   `session_id` varchar(255) NOT NULL DEFAULT '0' COMMENT '判断是否登录的session_id',
   `role_id` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '角色id',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '默认是正常状态,0为禁止',
-  `delete` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '删除 1正常 2已删除',
+  `delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '删除 1正常 2已删除',
   `username` varchar(255) NOT NULL DEFAULT '' COMMENT '用户名称',
   `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
   `email` varchar(16) NOT NULL DEFAULT '' COMMENT '邮箱',
@@ -70,8 +102,8 @@ CREATE TABLE `qt_user` (
   `login_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '登录次数',
   `login_last_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
   `login_last_ip` varchar(100) NOT NULL DEFAULT '0' COMMENT '最后登陆ip',
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
-  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `create_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '注册时间',
+  `update_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING BTREE,
   KEY `create_time` (`create_time`) USING BTREE,
@@ -79,8 +111,11 @@ CREATE TABLE `qt_user` (
   KEY `status` (`status`) USING BTREE,
   KEY `role_id` (`role_id`) USING BTREE,
   KEY `delete` (`delete`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of qt_user
 -- ----------------------------
+INSERT INTO `qt_user` VALUES ('1', '0', '1', '1', '0', '13520651050', 'c4ca4238a0b923820dcc509a6f75849b', '', '1', '', '', '1', '1', '13520651050', '1', '::1', '0', '0', '0', '0', '0', '0', '0', '2018-09-18 16:12:36', '0000-00-00 00:00:00');
+INSERT INTO `qt_user` VALUES ('2', '0', '1', '1', '0', '13520651051', '6512bd43d9caa6e02c990b0a82652dca', '', '11', '', '', '1', '1', '13520651051', '1', '0.0.0.0', '0', '0', '0', '0', '0', '0', '0', '2018-09-18 16:27:21', '0000-00-00 00:00:00');
+INSERT INTO `qt_user` VALUES ('3', '0', '1', '1', '0', '13511111113', 'c4ca4238a0b923820dcc509a6f75849b', '', '1', '', '', '1', '1', '13511111113', '1', '0.0.0.0', '0', '0', '0', '0', '0', '0', '0', '2018-10-08 14:10:23', '0000-00-00 00:00:00');
